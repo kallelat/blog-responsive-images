@@ -27,17 +27,58 @@ TBD: bandwidth
 
 ## Solving problems with `<picture>` element
 
-TBD: lisää eri versiot kuvasta (muista fallback)
+To make our picture responsive, replace plain `<img>` element with this:
 
-TBD: huomioi className reactissa
+```html
+<picture>
+  <source media="(max-width: 480px)" srcset="scenery-480w.jpg" />
+  <source media="(max-width: 800px)" srcset="scenery-800w.jpg" />
+  <img
+    src="scenery.jpg"
+    alt="A beautiful yet a little heavy to load a mountain scenery"
+  />
+</picture>
+```
+
+Inside the `<picture>` we first list sources to use for different cases (like screen size, portrait vs landscape) and image files for each case.
+
+You can finetune the media queries however you like, you can for example use different image for portrait and landscape versions.
+
+The only thing browsers render, is the `<img>` tag, but the image rendered will be changed according the defined sources.
+
+If none of the `<source>` elements match, then the browser will use standard `<img>` here. It will be also used as a fallback for browsers not supporting `<picture>`.
+
+Remeber that `alt` attribute of the image will always be the same, so the different variations of the image should not be semantically different.
 
 ## Advanced use cases
 
-TBD: Use new image formats
+### Newer image format
 
-TBD: Different images for different devices
+If you want to have a support for newer, more optimized image formats like `webp`, you can add a new source with `type` attribute, like this:
 
-TBD: object-fit
+```html
+<source
+  type="image/webp"
+  media="(max-width: 480px)"
+  srcset="scenery-480w.jpg"
+/>
+<source media="(max-width: 480px)" srcset="scenery-480w.jpg" />
+```
+
+In this case, the browser renders the optimized webp version, if the browser supports it.
+
+### High-res devices
+
+Another cool trick is defining separate files for high-res devices, like Retinas. You can do this by utilizing srcSet further:
+
+```html
+<source
+  media="(max-width: 480px)"
+  srcset="scenery-480w.jpg, scenery-480w-2x.jpg 2x"
+/>
+```
+
+With this, we will always show the image in same size, but use a larger image if the device has a bigger resotion.
 
 ## Summary
 
