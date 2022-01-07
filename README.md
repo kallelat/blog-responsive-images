@@ -47,6 +47,8 @@ TBD: SEO
 
 TBD: parempi UX
 
+**If you are interested** check some additional material from [MDN](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#why_responsive_images).
+
 **Feel free to browse the code, if you have any questions or improvement ideas let me know!**
 
 ## Author
