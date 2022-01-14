@@ -17,17 +17,19 @@ If you want to follow the tutorial, please checkout to branch `initial` which ca
 
 ## Common problems
 
-TBD: one image
+Usually the problem comes when you have a nice image for your app/site, but the image usually fits only a few selected resolutions. Even if the layout is responsive, the image itself might not be perfect fit for different resolutions or device orientations. 
 
-TBD: resolution switching problem
+In general the problems with images are divivid into two categories: `art direction problem` and `resolution switching problem`.
 
-TBD: art direction problem
+`The art direction problem` is the case where picture dimensions or layout in general is different on different devices, for example `landscape vs portrait devide` or `narrow mobile view vs desktop view`.
 
-TBD: bandwidth
+`The resolution switching problem` is the case where the quality of the image does not match the device it is shown in. For example `large image on a small device` which is waste of resources, or `small image on large device` which makes image quality poor.
+
+In addition, from bandwidth point of view is is not optimal to download large images when the device itself is small and does not benefit from images with bigger resolution. What we want is to download the one and only image, that would fit the device perfectly.
 
 ## Solving problems with `<picture>` element
 
-To make our picture responsive, replace plain `<img>` element with this:
+To make our picture responsive, replace the plain `<img>` element with this:
 
 ```html
 <picture>
@@ -40,15 +42,15 @@ To make our picture responsive, replace plain `<img>` element with this:
 </picture>
 ```
 
-Inside the `<picture>` we first list sources to use for different cases (like screen size, portrait vs landscape) and image files for each case.
+First we list all the potential versions of the image with `source` elements. Each source has a media query, that browser uses to determine which source to choose and a srcSet to tell which image file to use.
 
 You can finetune the media queries however you like, you can for example use different image for portrait and landscape versions.
 
-The only thing browsers render, is the `<img>` tag, but the image rendered will be changed according the defined sources.
+The browsers only render `<img>` element so you don't need to care about `<picture>` or `<source>` tags messing up your layout.
 
-If none of the `<source>` elements match, then the browser will use standard `<img>` here. It will be also used as a fallback for browsers not supporting `<picture>`.
+If none of the `<source>` elements match, then the browser will `<img>` here. It will be also used as a fallback for browsers not supporting `<picture>`.
 
-Remeber that `alt` attribute of the image will always be the same, so the different variations of the image should not be semantically different.
+Remember that `alt` attribute of the image will always be the same, so the different variations of the image should not be semantically different.
 
 ## Advanced use cases
 
@@ -60,7 +62,7 @@ If you want to have a support for newer, more optimized image formats like `webp
 <source
   type="image/webp"
   media="(max-width: 480px)"
-  srcset="scenery-480w.jpg"
+  srcset="scenery-480w.webp"
 />
 <source media="(max-width: 480px)" srcset="scenery-480w.jpg" />
 ```
@@ -82,11 +84,11 @@ With this, we will always show the image in same size, but use a larger image if
 
 ## Summary
 
-TBD: yhteenveto latausnopeuksista eri resoilla
+Quite simple in the end, isn't it?
 
-TBD: SEO
+There is a big difference in amount of data your browser needs to download, if you use responsive images wisely. In my simple demo, a mobile would only download 75Kb image instead of 208Kb image. That is a lot.
 
-TBD: parempi UX
+This helps you in `UX` as you create your layout optimised for multiple devices. It also helps you with `SEO` as your page comes faster to load and faster to render.
 
 **If you are interested** check some additional material from [MDN](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#why_responsive_images).
 
